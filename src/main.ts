@@ -20,7 +20,13 @@ async function bootstrap() {
     },
   );
 
-  app.enableCors();
+  app.enableCors({
+    origin:
+      config.NODE_ENV === "development" ? true : ["http://localhost:3000"], // Allow all origins in dev, specific in prod
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "Accept"],
+    credentials: true,
+  });
 
   // Global validation pipe
   app.useGlobalPipes(
