@@ -23,6 +23,7 @@ A production-ready NestJS backend template built with Clean Architecture princip
 - **Testing**: Comprehensive testing setup with Vitest
 - **Configuration**: Environment-based config with Zod validation
 - **Dependency Injection**: Custom service provider with caching
+- **Request Logging**: Built-in HTTP request/response logging middleware
 - **Example Entity**: Tasks CRUD as a reference implementation
 
 ## 🚀 Quick Start
@@ -139,7 +140,7 @@ npm run test:e2e
 
 ```
 src/
-├── adapters/          # External interfaces (REST controllers)
+├── adapters/          # External interfaces (REST controllers, middleware)
 ├── domain/           # Business logic and repository interfaces
 ├── infra/            # Technical implementations (database, etc.)
 ├── service-provider/ # Dependency injection system
@@ -205,7 +206,7 @@ The Clean Architecture patterns ensure your business logic stays separate from t
 - [ ] Add GraphQL support alongside REST
 - [ ] Option to use PostgreSQL instead of MongoDB
 - [ ] Add Redis caching layer
-- [ ] Add request/response logging middleware
+- [x] Add request/response logging middleware
 - [ ] Add health check endpoints
 
 ### Low Priority
