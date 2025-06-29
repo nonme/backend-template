@@ -3,11 +3,11 @@ import {
   NestInterceptor,
   ExecutionContext,
   CallHandler,
-  Logger,
 } from "@nestjs/common";
 import { Observable } from "rxjs";
 import { tap } from "rxjs/operators";
 import { FastifyRequest, FastifyReply } from "fastify";
+import { logger } from "../../utils/logger.utils";
 
 interface SanitizedBody {
   [key: string]: unknown;
@@ -37,8 +37,6 @@ interface ResponseDetails {
 
 @Injectable()
 export class RequestLoggerInterceptor implements NestInterceptor {
-  private readonly logger = new Logger(RequestLoggerInterceptor.name);
-
   intercept(context: ExecutionContext, next: CallHandler): Observable<unknown> {
     const ctx = context.switchToHttp();
     const request = ctx.getRequest<FastifyRequest>();
@@ -65,9 +63,9 @@ export class RequestLoggerInterceptor implements NestInterceptor {
         Object.keys(request.query ?? {}).length > 0 ? request.query : undefined,
     };
 
-    this.logger.log(`➤ ${method} ${url} - ${ip}`);
+    logger.info(`➤ ${method} ${url} - ${ip}`);
 
-    this.logger.debug({
+    logger.debug({
       method,
       url,
       ip,
@@ -111,14 +109,14 @@ export class RequestLoggerInterceptor implements NestInterceptor {
         };
 
         if (statusCode >= 500) {
-          this.logger.error(logMessage);
+          logger.error(logMessage);
         } else if (statusCode >= 400) {
-          this.logger.warn(logMessage);
+          logger.warn(logMessage);
         } else {
-          this.logger.log(logMessage);
+          logger.info(logMessage);
         }
 
-        this.logger.debug(responseData);
+        logger.debug(responseData);
       }),
     );
   }

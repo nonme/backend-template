@@ -28,7 +28,7 @@ import {
 import { TaskFilters } from "../../domain/tasks/task.types";
 import { getService, AppContext } from "../../service-provider";
 import { MongoTaskRepository } from "../../infra/repositories/mongo-task.repository";
-import { logError } from "../../utils/logger.utils";
+import { enhancedLogger } from "../../utils/logger.utils";
 
 @ApiTags("tasks")
 @Controller("tasks")
@@ -55,7 +55,9 @@ export class TasksController {
       const taskService = getService(this.getContext(), "task");
       return await taskService.createTask(createTaskInput);
     } catch (error) {
-      logError(error, "TasksController.createTask", { createTaskInput });
+      enhancedLogger.logError(error, "TasksController.createTask", {
+        createTaskInput,
+      });
       throw new HttpException(
         "Failed to create task",
         HttpStatus.INTERNAL_SERVER_ERROR,
@@ -125,7 +127,7 @@ export class TasksController {
         total,
       };
     } catch (error) {
-      logError(error, "TasksController.getAllTasks", {
+      enhancedLogger.logError(error, "TasksController.getAllTasks", {
         completed,
         search,
         limit,
@@ -158,7 +160,7 @@ export class TasksController {
       if (error instanceof HttpException) {
         throw error;
       }
-      logError(error, "TasksController.getTaskById", { id });
+      enhancedLogger.logError(error, "TasksController.getTaskById", { id });
       throw new HttpException(
         "Failed to fetch task",
         HttpStatus.INTERNAL_SERVER_ERROR,
@@ -194,7 +196,10 @@ export class TasksController {
       if (error instanceof HttpException) {
         throw error;
       }
-      logError(error, "TasksController.updateTask", { id, updateTaskInput });
+      enhancedLogger.logError(error, "TasksController.updateTask", {
+        id,
+        updateTaskInput,
+      });
       throw new HttpException(
         "Failed to update task",
         HttpStatus.INTERNAL_SERVER_ERROR,
@@ -226,7 +231,7 @@ export class TasksController {
       if (error instanceof HttpException) {
         throw error;
       }
-      logError(error, "TasksController.deleteTask", { id });
+      enhancedLogger.logError(error, "TasksController.deleteTask", { id });
       throw new HttpException(
         "Failed to delete task",
         HttpStatus.INTERNAL_SERVER_ERROR,

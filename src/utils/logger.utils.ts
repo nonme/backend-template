@@ -25,54 +25,35 @@ export const logger = pino({
 });
 
 /**
- * Log error with proper message extraction
+ * Enhanced logger with utility methods for common patterns
  */
-export function logError(
-  error: unknown,
-  context?: string,
-  metadata?: Record<string, unknown>,
-): void {
-  const errorMessage = getErrorMessage(error);
-  const logData: Record<string, unknown> = {
-    error: errorMessage,
-    context,
-    ...metadata,
-  };
+export const enhancedLogger = {
+  ...logger,
 
-  if (error instanceof Error && error.stack) {
-    logData.stack = error.stack;
-  }
+  /**
+   * Log error with proper message extraction and stack trace
+   */
+  logError: (
+    error: unknown,
+    context?: string,
+    metadata?: Record<string, unknown>,
+  ): void => {
+    const errorMessage = getErrorMessage(error);
+    const logData: Record<string, unknown> = {
+      error: errorMessage,
+      context,
+      ...metadata,
+    };
 
-  const message = context ? `Error in ${context}` : "Error";
-  logger.error(logData, message);
-}
+    if (error instanceof Error && error.stack) {
+      logData.stack = error.stack;
+    }
 
-/**
- * Log info with optional metadata
- */
-export function logInfo(
-  message: string,
-  metadata?: Record<string, unknown>,
-): void {
-  logger.info({ ...metadata }, message);
-}
+    const message = context ? `Error in ${context}` : "Error";
+    logger.error(logData, message);
+  },
+};
 
-/**
- * Log warning with optional metadata
- */
-export function logWarning(
-  message: string,
-  metadata?: Record<string, unknown>,
-): void {
-  logger.warn({ ...metadata }, message);
-}
-
-/**
- * Log debug with optional metadata (only in development)
- */
-export function logDebug(
-  message: string,
-  metadata?: Record<string, unknown>,
-): void {
-  logger.debug({ ...metadata }, message);
-}
+// Export both the raw pino logger and enhanced version
+// Use `logger` for standard logging: logger.info(), logger.error(), etc.
+// Use `enhancedLogger.logError()` for enhanced error logging with stack traces

@@ -8,13 +8,16 @@ import { ValidationPipe } from "@nestjs/common";
 import { SwaggerModule, DocumentBuilder } from "@nestjs/swagger";
 import { AppModule } from "./app.module";
 import { validateConfig } from "./config/config";
-import { getErrorMessage } from "./utils/error.utils";
+import { logger, enhancedLogger } from "./utils/logger.utils";
 
 async function bootstrap() {
   const config = validateConfig();
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
     new FastifyAdapter(),
+    {
+      logger: false, // Use custom Pino logger instead
+    },
   );
 
   app.enableCors();
@@ -40,12 +43,12 @@ async function bootstrap() {
   SwaggerModule.setup("api", app, document);
 
   await app.listen(config.PORT);
-  console.log(
+  logger.info(
     `🚀 Server running at http://localhost:${config.PORT} (${process.env.NODE_ENV ?? "development"})`,
   );
 }
 
 bootstrap().catch((error: unknown) => {
-  console.error("Failed to bootstrap application:", getErrorMessage(error));
+  enhancedLogger.logError(error, "bootstrap");
   process.exit(1);
 });
