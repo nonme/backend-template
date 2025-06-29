@@ -99,3 +99,63 @@ export class GetTasksInput {
   @IsOptional()
   offset?: number;
 }
+
+export class TaskResponse {
+  @ApiProperty({
+    description: "The unique identifier of the task",
+    example: "507f1f77bcf86cd799439011",
+  })
+  id: string;
+
+  @ApiProperty({
+    description: "The title of the task",
+    example: "Complete project documentation",
+  })
+  title: string;
+
+  @ApiPropertyOptional({
+    description: "Optional description of the task",
+    example: "Write comprehensive documentation for the API endpoints",
+  })
+  description?: string;
+
+  @ApiProperty({
+    description: "Whether the task is completed",
+    example: false,
+  })
+  completed: boolean;
+
+  @ApiProperty({
+    description: "When the task was created",
+    example: "2024-01-15T10:30:00.000Z",
+  })
+  createdAt: Date;
+
+  @ApiProperty({
+    description: "When the task was last updated",
+    example: "2024-01-15T15:45:00.000Z",
+  })
+  updatedAt: Date;
+}
+
+export class GetTasksResponse {
+  @ApiProperty({
+    description: "Array of tasks",
+    type: [TaskResponse],
+  })
+  tasks: TaskResponse[];
+
+  @ApiProperty({
+    description: "Total number of tasks matching the filter criteria",
+    example: 25,
+  })
+  total: number;
+}
+
+export class DeleteTaskResponse {
+  @ApiProperty({
+    description: "Success message",
+    example: "Task deleted successfully",
+  })
+  message: string;
+}

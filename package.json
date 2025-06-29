@@ -17,8 +17,7 @@
     "test:watch": "vitest",
     "test:cov": "vitest run --coverage",
     "test:ui": "vitest --ui",
-    "test:e2e": "vitest run --config ./test/vitest-e2e.config.ts",
-    "generate:openapi": "npm run build && npx ts-node scripts/generate-openapi.ts"
+    "test:e2e": "vitest run --config ./test/vitest-e2e.config.ts"
   },
   "dependencies": {
     "@fastify/static": "^8.2.0",

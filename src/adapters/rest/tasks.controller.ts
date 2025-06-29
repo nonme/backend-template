@@ -18,7 +18,13 @@ import {
   ApiQuery,
   ApiBody,
 } from "@nestjs/swagger";
-import { CreateTaskInput, UpdateTaskInput } from "./tasks.types";
+import {
+  CreateTaskInput,
+  UpdateTaskInput,
+  TaskResponse,
+  GetTasksResponse,
+  DeleteTaskResponse,
+} from "./tasks.types";
 import { TaskFilters } from "../../domain/tasks/task.types";
 import { getService, AppContext } from "../../service-provider";
 import { MongoTaskRepository } from "../../infra/repositories/mongo-task.repository";
@@ -38,7 +44,11 @@ export class TasksController {
   @Post()
   @ApiOperation({ summary: "Create a new task" })
   @ApiBody({ type: CreateTaskInput })
-  @ApiResponse({ status: 201, description: "Task created successfully" })
+  @ApiResponse({
+    status: 201,
+    description: "Task created successfully",
+    type: TaskResponse,
+  })
   @ApiResponse({ status: 500, description: "Internal server error" })
   async createTask(@Body() createTaskInput: CreateTaskInput) {
     try {
@@ -79,7 +89,11 @@ export class TasksController {
     type: "number",
     description: "Number of tasks to skip",
   })
-  @ApiResponse({ status: 200, description: "Tasks retrieved successfully" })
+  @ApiResponse({
+    status: 200,
+    description: "Tasks retrieved successfully",
+    type: GetTasksResponse,
+  })
   @ApiResponse({ status: 500, description: "Internal server error" })
   async getAllTasks(
     @Query("completed") completed?: string,
@@ -127,7 +141,7 @@ export class TasksController {
   @Get(":id")
   @ApiOperation({ summary: "Get a task by ID" })
   @ApiParam({ name: "id", description: "Task ID" })
-  @ApiResponse({ status: 200, description: "Task found" })
+  @ApiResponse({ status: 200, description: "Task found", type: TaskResponse })
   @ApiResponse({ status: 404, description: "Task not found" })
   @ApiResponse({ status: 500, description: "Internal server error" })
   async getTaskById(@Param("id") id: string) {
@@ -156,7 +170,11 @@ export class TasksController {
   @ApiOperation({ summary: "Update a task by ID" })
   @ApiParam({ name: "id", description: "Task ID" })
   @ApiBody({ type: UpdateTaskInput })
-  @ApiResponse({ status: 200, description: "Task updated successfully" })
+  @ApiResponse({
+    status: 200,
+    description: "Task updated successfully",
+    type: TaskResponse,
+  })
   @ApiResponse({ status: 404, description: "Task not found" })
   @ApiResponse({ status: 500, description: "Internal server error" })
   async updateTask(
@@ -187,7 +205,11 @@ export class TasksController {
   @Delete(":id")
   @ApiOperation({ summary: "Delete a task by ID" })
   @ApiParam({ name: "id", description: "Task ID" })
-  @ApiResponse({ status: 200, description: "Task deleted successfully" })
+  @ApiResponse({
+    status: 200,
+    description: "Task deleted successfully",
+    type: DeleteTaskResponse,
+  })
   @ApiResponse({ status: 404, description: "Task not found" })
   @ApiResponse({ status: 500, description: "Internal server error" })
   async deleteTask(@Param("id") id: string) {

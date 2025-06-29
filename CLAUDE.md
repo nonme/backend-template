@@ -23,7 +23,6 @@ This is a backend-only NestJS application for progress tracking, built with:
 - `npm run test:e2e` - Run end-to-end tests
 - `npm run lint` - Lint backend code
 - `npm run format` - Format code with Prettier
-- `npm run generate:openapi` - Generate OpenAPI documentation
 
 ## Code Quality Commands
 

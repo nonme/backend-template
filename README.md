@@ -19,7 +19,7 @@ A production-ready NestJS backend template built with Clean Architecture princip
 - **NestJS + Fastify**: High-performance web framework with Fastify adapter
 - **MongoDB**: Document database with Mongoose ODM
 - **TypeScript**: Fully typed codebase with strict configuration
-- **OpenAPI/Swagger**: Auto-generated API documentation and type safety
+- **OpenAPI/Swagger**: API documentation with type safety
 - **Testing**: Comprehensive testing setup with Vitest
 - **Configuration**: Environment-based config with Zod validation
 - **Dependency Injection**: Custom service provider with caching
@@ -87,9 +87,6 @@ For MongoDB Atlas or other external providers, adjust the connection parameters 
 OpenAPI/Swagger documentation is available at:
 - **Interactive UI**: `http://localhost:3001/api`
 - **JSON Schema**: `http://localhost:3001/api-json`
-- **Generate Schema**: `npm run generate:openapi`
-
-See [OPENAPI.md](./OPENAPI.md) for detailed OpenAPI integration guide.
 
 ### Example API Endpoints (Tasks)
 
@@ -115,8 +112,6 @@ npm run start:prod
 # Lint code
 npm run lint
 
-# Generate OpenAPI schema
-npm run generate:openapi
 ```
 
 ### Testing
@@ -197,13 +192,12 @@ The Clean Architecture patterns ensure your business logic stays separate from t
 - `npm run test:watch` - Run tests in watch mode
 - `npm run test:cov` - Run tests with coverage
 - `npm run lint` - Lint and fix code
-- `npm run generate:openapi` - Generate OpenAPI schema file
 
 ### Future Enhancements (TODO)
 
 ### High Priority
 - [ ] Generalize controller code (reduce boilerplate)
-- [x] Add OpenAPI/Swagger documentation with code generation
+- [x] Add OpenAPI/Swagger documentation
 - [ ] Add authorization support (JWT/OAuth)
 - [ ] Add rate limiting middleware
 
