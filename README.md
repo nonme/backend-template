@@ -13,28 +13,6 @@
 
 A production-ready NestJS backend template built with Clean Architecture principles, modern TypeScript, and best practices. Use this as a starting point for any backend project.
 
-## 📚 Table of Contents
-
-- [✨ Features](#-features)
-- [🚀 Quick Start](#-quick-start)
-  - [Prerequisites](#prerequisites)
-  - [Getting Started](#getting-started)
-  - [Environment Variables](#environment-variables)
-- [📖 Usage](#-usage)
-  - [API Documentation](#api-documentation)
-  - [Example API Endpoints](#example-api-endpoints-tasks)
-  - [Development](#development)
-  - [Testing](#testing)
-- [🏗️ Architecture & Customization](#️-architecture--customization)
-  - [Architecture Overview](#architecture-overview)
-  - [Adapting the Template](#adapting-the-template)
-  - [Template Usage](#template-usage)
-- [📋 Reference](#-reference)
-  - [Scripts](#scripts)
-  - [Future Enhancements](#future-enhancements-todo)
-  - [Contributing](#contributing)
-  - [License](#license)
-
 ## ✨ Features
 
 - **Clean Architecture**: Domain-driven design with clear separation of concerns
@@ -252,6 +230,6 @@ When improving this template:
 4. Update documentation
 5. Maintain TypeScript strict mode
 
-### License
+## 📄 License
 
 MIT
